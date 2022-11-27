@@ -1,0 +1,12 @@
+Mode:
+Gc: Ungc
+SafeMode: Normal
+
+Code:
+new a
+new b
+mov a,15
+mov b,45
+add_gc a
+add_gc b
+free
