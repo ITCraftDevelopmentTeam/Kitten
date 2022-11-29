@@ -1,6 +1,6 @@
 use super::const_pool::ConstPool;
 use super::dynamic_memory::DynamicMemory;
-use crate::api::{Mode,GCMode,SafeMode};
+use crate::api::{GCMode, Mode, SafeMode};
 use crate::bitcode::KEYWORD;
 use anyhow::Result;
 
@@ -23,8 +23,13 @@ pub struct KittenVM {
 }
 
 impl KittenVM {
-    pub fn new(gc_mode: GCMode,safe_mode: SafeMode) -> Self{
-        Self { const_pool: ConstPool::default(), dynamic_memory: DynamicMemory::default(), status: Status::default(), mode: Mode{safe_mode,gc_mode} }
+    pub fn new(gc_mode: GCMode, safe_mode: SafeMode) -> Self {
+        Self {
+            const_pool: ConstPool::default(),
+            dynamic_memory: DynamicMemory::default(),
+            status: Status::default(),
+            mode: Mode { safe_mode, gc_mode },
+        }
     }
     /*
     匹配指令
@@ -38,12 +43,7 @@ impl KittenVM {
         let _result: Result<(), anyhow::Error> = match in_match {
             "free" => self.dynamic_memory.free(),
             "add_gc" => self.dynamic_memory.add_gc(code_info[1].parse()?).await,
-            "new" => self.const_pool.add(
-                code_info[1].to_string(),
-                self.dynamic_memory
-                    .new_mem(code_info[1].parse().unwrap())
-                    .await,
-            ),
+            "new" => self.dynamic_memory.new_mem(code_info[1].parse().unwrap(), code_info[2].parse().unwrap()).await,
             "mov" => {
                 self.dynamic_memory
                     .mov(code_info[1].parse().unwrap(), code_info[2].parse()?)

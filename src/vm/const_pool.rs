@@ -1,10 +1,10 @@
 use anyhow::{Ok, Result};
-use std::collections::HashMap;
+use std::{collections::HashMap, sync::Arc};
 
 //存储变量名和位置
 #[derive(Default)]
 pub struct ConstPool {
-    Pool: HashMap<String, usize>,
+    Pool: Vec<Arc<super::value_type::Type>>,
 }
 
 const CONST_POOL_INIT_CAP: usize = 8;
@@ -12,20 +12,11 @@ const CONST_POOL_INIT_CAP: usize = 8;
 impl ConstPool {
     pub fn new(&self) -> Self {
         Self {
-            Pool: HashMap::with_capacity(CONST_POOL_INIT_CAP),
+            Pool: Vec::with_capacity(CONST_POOL_INIT_CAP),
         }
     }
-    pub fn add(&mut self, name: String, target: usize) -> Result<()> {
-        self.Pool.insert(name, target);
+    pub fn add(&mut self, value: super::value_type::Type) -> Result<()> {
+        self.Pool.push(Arc::new(value));
         Ok(())
-    }
-    pub fn search(&self, name: String) -> Result<Option<&usize>, anyhow::Error> {
-        let result = self.Pool.get(&name);
-        if result.is_some() {
-            Ok(result)
-        } else {
-            tracing::error!("Can't find {}", name);
-            Err(anyhow::anyhow!("Can't find {}", name))
-        }
     }
 }

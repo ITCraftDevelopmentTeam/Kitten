@@ -25,9 +25,9 @@ pub struct API {
 }
 
 impl API {
-    pub fn new(gc_mode: GCMode,safe_mode: SafeMode) -> Self {
+    pub fn new(gc_mode: GCMode, safe_mode: SafeMode) -> Self {
         Self {
-            vm: KittenVM::new(gc_mode,safe_mode),
+            vm: KittenVM::new(gc_mode, safe_mode),
         }
     }
     pub async fn file(&self, _file_path: &Path) -> Result<()> {
