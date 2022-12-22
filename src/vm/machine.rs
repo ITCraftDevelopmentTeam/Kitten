@@ -38,7 +38,7 @@ impl KittenVM {
         if code.is_empty() {
             tracing::info!("code.is_empty()");
         }
-        let code_info: Vec<&str> = code.split(' ').collect();
+        let code_info: Vec<&str> = code.split(r"\a").collect();
         let in_match = code_info[0];
         let _result: Result<(), anyhow::Error> = match in_match {
             "free" => self.dynamic_memory.free(),
