@@ -38,110 +38,115 @@ impl KittenVM {
         if code.is_empty() {
             tracing::info!("code.is_empty()");
         }
-        let code_info: Vec<&str> = code.split(r"\a").collect();
-        let in_match = code_info[0];
-        let _result: Result<(), anyhow::Error> = match in_match {
-            "free" => self.dynamic_memory.free(),
-            "add_gc" => self.dynamic_memory.add_gc(code_info[1].parse()?).await,
-            "new" => {
-                self.dynamic_memory
+        let line:Vec<&str> = code.split(r"\a").collect();
+        let mut size:usize = 0;
+        for i in line.iter(){
+            let code_info: Vec<&str> = line[size].split(' ').collect();
+            let in_match = code_info[0];
+            let _result: Result<(), anyhow::Error> = match in_match {
+                "free" => self.dynamic_memory.free(),
+                "add_gc" => self.dynamic_memory.add_gc(code_info[1].parse()?).await,
+                "new" => {
+                    self.dynamic_memory
                     .new_mem(code_info[1].parse().unwrap(), code_info[2].parse().unwrap())
                     .await
-            }
-            "mov" => {
-                self.dynamic_memory
+                }
+                "mov" => {
+                    self.dynamic_memory
                     .mov(code_info[1].parse().unwrap(), code_info[2].parse()?)
                     .await
-            }
-            "add" => {
-                self.dynamic_memory
+                }
+                "add" => {
+                    self.dynamic_memory
                     .add(
-                        code_info[1].parse()?,
+                            code_info[1].parse()?,
                         code_info[2].parse()?,
                         code_info[3].parse()?,
                     )
                     .await
-            }
-            "sud" => {
-                self.dynamic_memory
+                }
+                "sud" => {
+                    self.dynamic_memory
                     .sud(
-                        code_info[1].parse()?,
+                            code_info[1].parse()?,
                         code_info[2].parse()?,
                         code_info[3].parse()?,
                     )
                     .await
-            }
-            "mul" => {
-                self.dynamic_memory
+                }
+                "mul" => {
+                    self.dynamic_memory
                     .mul(
-                        code_info[1].parse()?,
+                            code_info[1].parse()?,
                         code_info[2].parse()?,
                         code_info[3].parse()?,
                     )
                     .await
-            }
-            "div" => {
-                self.dynamic_memory
+                }
+                "div" => {
+                    self.dynamic_memory
                     .div(
-                        code_info[1].parse()?,
+                            code_info[1].parse()?,
                         code_info[2].parse()?,
                         code_info[3].parse()?,
                     )
                     .await
-            }
-            "sll" => {
-                self.dynamic_memory
+                }
+                "sll" => {
+                    self.dynamic_memory
                     .sll(
-                        code_info[1].parse()?,
+                            code_info[1].parse()?,
                         code_info[2].parse()?,
                         code_info[3].parse()?,
                     )
                     .await
-            }
-            "sra" => {
-                self.dynamic_memory
+                }
+                "sra" => {
+                    self.dynamic_memory
                     .sra(
-                        code_info[1].parse()?,
+                            code_info[1].parse()?,
                         code_info[2].parse()?,
                         code_info[3].parse()?,
                     )
                     .await
-            }
-            "xor" => {
-                self.dynamic_memory
+                }
+                "xor" => {
+                    self.dynamic_memory
                     .xor(
-                        code_info[1].parse()?,
+                            code_info[1].parse()?,
                         code_info[2].parse()?,
                         code_info[3].parse()?,
                     )
                     .await
-            }
-            "or" => {
-                self.dynamic_memory
+                }
+                "or" => {
+                    self.dynamic_memory
                     .or(
-                        code_info[1].parse()?,
+                            code_info[1].parse()?,
                         code_info[2].parse()?,
                         code_info[3].parse()?,
                     )
                     .await
-            }
-            "and" => {
-                self.dynamic_memory
+                }
+                "and" => {
+                    self.dynamic_memory
                     .and(
-                        code_info[1].parse()?,
+                            code_info[1].parse()?,
                         code_info[2].parse()?,
                         code_info[3].parse()?,
                     )
                     .await
-            }
-            _ => {
-                tracing::error!(
-                    "Keyword not found\n All the current keywords are as follows{:#?}",
+                }
+                _ => {
+                    tracing::error!(
+                            "Keyword not found\n All the current keywords are as follows{:#?}",
                     KEYWORD
                 );
-                return Err(anyhow::anyhow!("Keyword not found"));
-            }
-        };
+                    return Err(anyhow::anyhow!("Keyword not found"));
+                }
+            };
+            size+=1;
+        }
         Ok(())
     }
 }
