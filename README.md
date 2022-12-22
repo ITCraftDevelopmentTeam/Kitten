@@ -1,40 +1,47 @@
 # Kitten
-修改自[KittenVM](https://github.com/Shirasawa-CN/KittenVM),但是是一个独立的RT。
+Modified from [KittenVM](https://github.com/Shirasawa-CN/KittenVM), but is a separate RT.  
 
+[Simplified Chinese?](./README_cn.md)  
 
-## 特性
-本玩具具有许多奇奇怪怪的脑洞特性，请移步到[README](./docs/README.md)
+## TODO
+1.IO  
+2.JIT  
+3. Monitor process  
+4. Garbage collection process  
 
-# 使用(指令)
-## 创建空间
+## FEATURES
+This toy has a lot of weird and wonderful features, please move to [README](. /docs/README.md)
+
+## Use
+## Create space
 ```
 new name
 ```
-创建一个名为name的内存空间
+Create a memory space named name
 
-## 移动数据
+## Move data
 ```
 mov name,4
 ```
-将数字4移动到name空间
+Move the number 4 to the name space
 
 ```
 mov name1,name2
 ```
-将name2的值移动到name1，此时name2变成None
+Move the value of name2 to name1, then name2 becomes None
 
-## 内存回收
+## Memory recovery
 ```
 add_gc a
 ```
-将a添加到回收列表中
+Add a to the recycle list
 ```
 free
 ```
-清理回收列表中的内存
+Clear the memory in the recycle list
 
-## 运算
-add and div mul or sll sra sud xor 这些运算指令的格式均如下
+## Operations
+add and div mul or sll sra sud xor The format of each of these instructions is as follows
 
 ```
 expr rs1,rs2,target

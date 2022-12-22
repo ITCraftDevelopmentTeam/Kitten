@@ -12,6 +12,6 @@ repository = "https://github.com/Shirasawa-CN/Kitten"
 
 [dependencies]
 anyhow = "1.0"
-clap = { version = "4.0.27", features = ["derive", "env", "unicode", "wrap_help", "string", "cargo"] }
-tokio = { version = "1.22.0", features = ["full"] }
+clap = { version = "4.0.30", features = ["derive", "env", "unicode", "wrap_help", "string", "cargo"] }
+tokio = { version = "1.23.0", features = ["full"] }
 tracing = "0.1.37"
