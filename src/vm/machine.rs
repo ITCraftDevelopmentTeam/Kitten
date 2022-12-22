@@ -34,7 +34,7 @@ impl KittenVM {
     /*
     匹配指令
     */
-    pub async fn matcher(&mut self, code: String) -> Result<()> {
+    pub async fn lexer(&mut self, code: String) -> Result<()> {
         if code.is_empty() {
             tracing::info!("code.is_empty()");
         }
@@ -43,7 +43,11 @@ impl KittenVM {
         let _result: Result<(), anyhow::Error> = match in_match {
             "free" => self.dynamic_memory.free(),
             "add_gc" => self.dynamic_memory.add_gc(code_info[1].parse()?).await,
-            "new" => self.dynamic_memory.new_mem(code_info[1].parse().unwrap(), code_info[2].parse().unwrap()).await,
+            "new" => {
+                self.dynamic_memory
+                    .new_mem(code_info[1].parse().unwrap(), code_info[2].parse().unwrap())
+                    .await
+            }
             "mov" => {
                 self.dynamic_memory
                     .mov(code_info[1].parse().unwrap(), code_info[2].parse()?)

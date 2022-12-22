@@ -1,20 +1,20 @@
 use crate::vm::machine::KittenVM;
 use anyhow::{Ok, Result};
-use clap::{Parser, Subcommand};
-use std::{path::Path, str::FromStr, sync::Arc};
+use clap::Parser;
+use std::{path::Path, sync::Arc};
 
 pub struct Mode {
     pub safe_mode: SafeMode,
     pub gc_mode: GCMode,
 }
 
-#[derive(Clone, Parser)]
+#[derive(Clone, Parser, Copy)]
 pub enum SafeMode {
     Safe,
     Normal,
 }
 
-#[derive(Clone, Parser)]
+#[derive(Clone, Parser, Copy)]
 pub enum GCMode {
     SimpleGC,
     UnGC,

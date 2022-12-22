@@ -60,7 +60,8 @@ impl DynamicMemory {
                 "The destination address is not in the allocated memory range"
             ));
         }
-        self.stack.value[*self.Pool.get(&target).unwrap()] = Arc::new(*self.stack.value[rs1] + *self.stack.value[rs2]);
+        self.stack.value[*self.Pool.get(&target).unwrap()] =
+            Arc::new(*self.stack.value[rs1] + *self.stack.value[rs2]);
         Ok(())
     }
     pub async fn add_gc(&mut self, add_position: usize) -> Result<()> {
@@ -83,7 +84,8 @@ impl DynamicMemory {
                 "The destination address is not in the allocated memory range"
             ));
         }
-        self.stack.value[*self.Pool.get(&target).unwrap()] = Arc::new(*self.stack.value[rs1] & *self.stack.value[rs2]);
+        self.stack.value[*self.Pool.get(&target).unwrap()] =
+            Arc::new(*self.stack.value[rs1] & *self.stack.value[rs2]);
         Ok(())
     }
     pub async fn div(
@@ -101,7 +103,8 @@ impl DynamicMemory {
                 "The destination address is not in the allocated memory range"
             ));
         }
-        self.stack.value[*self.Pool.get(&target).unwrap()] = Arc::new(*self.stack.value[rs1] / *self.stack.value[rs2]);
+        self.stack.value[*self.Pool.get(&target).unwrap()] =
+            Arc::new(*self.stack.value[rs1] / *self.stack.value[rs2]);
         Ok(())
     }
     /*
@@ -159,15 +162,25 @@ impl DynamicMemory {
                 "The destination address is not in the allocated memory range"
             ));
         }
-        self.stack.value[*self.Pool.get(&target).unwrap()] = Arc::new(*self.stack.value[rs1] * *self.stack.value[rs2]);
+        self.stack.value[*self.Pool.get(&target).unwrap()] =
+            Arc::new(*self.stack.value[rs1] * *self.stack.value[rs2]);
         Ok(())
     }
-    pub async fn new_mem(&mut self, rs: super::value_type::Type, name:String) -> Result<(), anyhow::Error> {
+    pub async fn new_mem(
+        &mut self,
+        rs: super::value_type::Type,
+        name: String,
+    ) -> Result<(), anyhow::Error> {
         self.stack.value.push(Arc::new(rs));
         self.Pool.insert(name, self.stack.value.len());
         Ok(())
     }
-    pub async fn or(&mut self, rs1: usize, rs2: usize, target: String) -> Result<(), anyhow::Error> {
+    pub async fn or(
+        &mut self,
+        rs1: usize,
+        rs2: usize,
+        target: String,
+    ) -> Result<(), anyhow::Error> {
         if self.Pool.get(&target).unwrap() > &self.stack.value.len() {
             tracing::error!(
                 "The destination address is not in the allocated memory range. Traget:{}",
@@ -177,7 +190,8 @@ impl DynamicMemory {
                 "The destination address is not in the allocated memory range"
             ));
         }
-        self.stack.value[*self.Pool.get(&target).unwrap()] = Arc::new(*self.stack.value[rs1] | *self.stack.value[rs2]);
+        self.stack.value[*self.Pool.get(&target).unwrap()] =
+            Arc::new(*self.stack.value[rs1] | *self.stack.value[rs2]);
         Ok(())
     }
     pub async fn sll(
@@ -195,7 +209,8 @@ impl DynamicMemory {
                 "The destination address is not in the allocated memory range"
             ));
         }
-        self.stack.value[*self.Pool.get(&target).unwrap()] = Arc::new(*self.stack.value[rs1] << *self.stack.value[rs2]);
+        self.stack.value[*self.Pool.get(&target).unwrap()] =
+            Arc::new(*self.stack.value[rs1] << *self.stack.value[rs2]);
         Ok(())
     }
     pub async fn sra(
@@ -213,7 +228,8 @@ impl DynamicMemory {
                 "The destination address is not in the allocated memory range"
             ));
         }
-        self.stack.value[*self.Pool.get(&target).unwrap()] = Arc::new(*self.stack.value[rs1] >> *self.stack.value[rs2]);
+        self.stack.value[*self.Pool.get(&target).unwrap()] =
+            Arc::new(*self.stack.value[rs1] >> *self.stack.value[rs2]);
         Ok(())
     }
     pub async fn sud(
@@ -231,7 +247,8 @@ impl DynamicMemory {
                 "The destination address is not in the allocated memory range"
             ));
         }
-        self.stack.value[*self.Pool.get(&target).unwrap()] = Arc::new(*self.stack.value[rs1] - *self.stack.value[rs2]);
+        self.stack.value[*self.Pool.get(&target).unwrap()] =
+            Arc::new(*self.stack.value[rs1] - *self.stack.value[rs2]);
         Ok(())
     }
     pub async fn xor(
@@ -249,7 +266,8 @@ impl DynamicMemory {
                 "The destination address is not in the allocated memory range"
             ));
         }
-        self.stack.value[*self.Pool.get(&target).unwrap()] = Arc::new(*self.stack.value[rs1] ^ *self.stack.value[rs2]);
+        self.stack.value[*self.Pool.get(&target).unwrap()] =
+            Arc::new(*self.stack.value[rs1] ^ *self.stack.value[rs2]);
         Ok(())
     }
 }
