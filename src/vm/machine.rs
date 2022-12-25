@@ -137,6 +137,11 @@ impl KittenVM {
                     )
                     .await
                 }
+                "const" => {
+                    self.const_pool.add(
+                        code_info[1].parse().unwrap()
+                    )
+                }
                 _ => {
                     tracing::error!(
                             "Keyword not found\n All the current keywords are as follows{:#?}",

@@ -2,6 +2,7 @@ mod analysis;
 pub mod api;
 mod bitcode;
 pub mod vm;
+pub mod io;
 use api::{GCMode, SafeMode, API};
 
 use crate::vm::machine::KittenVM;

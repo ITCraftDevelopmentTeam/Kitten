@@ -1,5 +1,6 @@
 new 15 a
 new 45 b
+const 56 const_pool
 add_gc a
 add_gc b
 free

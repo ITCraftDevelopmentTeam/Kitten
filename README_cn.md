@@ -11,12 +11,29 @@
 本玩具具有许多奇奇怪怪的脑洞特性，请移步到[README](./docs/README.md)
 
 # 使用
+## Cli
+```
+Usage: kitten [OPTIONS]
+
+Options:
+  -g, --gc-mode <GC_MODE>      GC mode:UnGC or SimpleGC
+  -s, --safe-mode <SAFE_MODE>  Safe Mode:Normal or Safe
+  -f, --file-path <FILE_PATH>  File path
+  -h, --help                   Print help information
+  -V, --version                Print version information
+
+```
+例如：
+```./kitten -f ./example.kvm```
 ## 创建空间
 ```
 new name
 ```
 创建一个名为name的内存空间
 
+```
+const name value
+```
 ## 移动数据
 ```
 mov name,4
